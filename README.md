@@ -1,5 +1,6 @@
 # AppstractReader
 Program to read bibliography files into mp3, v1.0
+
 Last updated: April 16, 2021
 
 
@@ -9,7 +10,10 @@ First, install pyttsx3 using pip or other preferred methods to install python pa
 ```
 pip install pyttsx3
 ```
-
+If you are using Python 2.x, you may need to install Tk:
+```
+pip install tkinter
+```
 
 # Usage
 Run Main.py on your terminal. 
