@@ -1,5 +1,0 @@
-Run Main.py
-
-You will be prompted for an input file (.bib) and a target save file (.mp3). The contents of the
-bibliography will be parsed and read to the .mp3 file. The file will read the title, author(s), 
-journal, year, and abstract (if available) of each entry in the .bib file.
