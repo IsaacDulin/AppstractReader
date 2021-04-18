@@ -13,9 +13,14 @@ class Bibliography:
     def __init__(self):
         return
 
+def str_clean(string):
+    strclean = string.replace("=", " is ").replace("{", " ").replace("}", " ")
+    strclean = strclean.replace("\t", " ").replace("  ", " ").replace("  ", " ").replace("  ", " ").replace("  ", " ").replace("  ", " ")
+    return strclean
+
 # Get the input .bib file
-Tk().withdraw() 
-filename = askopenfilename() 
+Tk().withdraw()
+filename = askopenfilename()
 
 # Read the file and generate a list of bibliographies
 f = open(filename, "r")
@@ -30,42 +35,43 @@ while not endoffile:
     if (len(line)==0):
         endoffile=True
         continue
-
-    if line.startswith('@'):
+    if line.lstrip().startswith('@'):
         bib = Bibliography()
         biblist.append(bib)
-    if line.startswith("\tauthor"):
 
-        authors = line.replace("author = ", "")
+    if line.lstrip().startswith("author"):
+        authors = line.replace("author = ", "").replace(" and ", "  and  ")
         authlist = authors.split(" and ")
         newauthor = ""
         for auth in authlist:
             lastfirst = auth.split(',')
             firstlast = lastfirst[1] + lastfirst[0]
+            firstlast = str_clean(firstlast)
             newauthor = newauthor + firstlast + ","
-        bib.Author = "Author is " + newauthor 
-    elif line.startswith("\tabstract"):
-        bib.Abstract = line.replace("=", " is ")
-    elif line.startswith("\ttitle"):
-        bib.Title = line.replace("=", " is ")
-    elif line.startswith("\tjournal"):
-        bib.Journal = line.replace("=", " is ")
-    elif line.startswith("\tyear"):
-        bib.Year = line.replace("=", " is ")
+        bib.Author = "Author is " + newauthor
+    elif line.lstrip().startswith("abstract"):
+        bib.Abstract = "\t" + str_clean(line)
+    elif line.lstrip().startswith("title"):
+        bib.Title = "\t" + str_clean(line)
+    elif line.lstrip().startswith("journal"):
+        bib.Journal = "\t" + str_clean(line)
+    elif line.lstrip().startswith("year"):
+        bib.Year = "\t" + str_clean(line)
 f.close()
 
 # Generate a string to be read by the text to speech engine
 textstring =""
 for bib in biblist:
-    textstring = textstring + bib.Author + "\n"
-    textstring = textstring + bib.Year + "\n"
-    textstring = textstring + bib.Title + "\n"
-    textstring = textstring + bib.Journal + "\n"
+    textstring = textstring + bib.Author #+ "\n"
+    textstring = textstring + bib.Year #+ "\n"
+    textstring = textstring + bib.Title #+ "\n"
+    textstring = textstring + bib.Journal #+ "\n"
     if (bib.Abstract == ""):
-        textstring = textstring + "No abstract.\n"
+        textstring = textstring + "No abstract."
     else:
         textstring = textstring + bib.Abstract
-    textstring += "Next.\n "
+    textstring += "Next. "
+
 
 # Initialize the text-to-speech engine
 engine = pyttsx3.init()
@@ -77,7 +83,7 @@ for voice in voices:
     if (voice.id == "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0"):
         voiceid = voice.id
         break
-    if (voice.gender == "female"):
+    if (voice.id == "com.apple.speech.synthesis.voice.tessa"): #we also like Samantha
         voiceid = voice.id
         break
 engine.setProperty('voice', voiceid)
@@ -86,8 +92,8 @@ engine.setProperty('voice', voiceid)
 rate = engine.getProperty('rate')
 engine.setProperty('rate', rate-40)
 
-# Get the output file 
-outputfile = asksaveasfilename(title = "Save to file",filetypes = (("mp3 files","*.mp3"),("all files","*.*"))) 
+# Get the output file
+outputfile = asksaveasfilename(title = "Save to file",filetypes = (("mp3 files","*.mp3"),("all files","*.*")))
 
 # Save the MP3 file, recording the time it took, and then report done!
 starttime = time.time()
