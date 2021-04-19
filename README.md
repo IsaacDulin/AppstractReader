@@ -1,9 +1,6 @@
 # AppstractReader
 Program to read bibliography files into mp3, v1.0
 
-Last updated: April 16, 2021
-
-
 
 # Setup
 This program should work on Mac and Windows. We are still working on Ubuntu/Linux compatibility.
