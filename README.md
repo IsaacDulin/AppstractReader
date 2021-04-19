@@ -6,6 +6,8 @@ Last updated: April 16, 2021
 
 
 # Setup
+This program should work on Mac and Windows. We are still working on Ubuntu/Linux compatibility.
+
 First, install pyttsx3 using pip or other preferred methods to install python packages.
 ```
 pip install pyttsx3
@@ -16,9 +18,9 @@ pip install tkinter
 ```
 
 # Usage
-Run Main.py on your terminal:
+Run AppstractReader.py on your terminal:
 ```
-python Main.py
+python AppstractReader.py
 ```
 You will be prompted for an input file (.bib) and a target save file (.mp3). The contents of the
 bibliography will be parsed and read to the .mp3 file. The file will read the title, author(s), 
