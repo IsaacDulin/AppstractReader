@@ -23,6 +23,8 @@ You will be prompted for an input file (.bib) and a target save file (.mp3). The
 bibliography will be parsed and read to the .mp3 file. The file will read the title, author(s), 
 journal, year, and abstract (if available) of each entry in the .bib file. 
 
+Once you have the .mp3 file, you can load it onto iTunes or any other song player. You can also load it onto a Garmin or another smart watch that supports .mp3.
+
 
 
 # Authors
